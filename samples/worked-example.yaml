@@ -1,0 +1,60 @@
+$schema: https://learning-contents.org/schemas/worked-example/0.1.0
+source: main.py
+license: MIT
+locale: en-US
+id: we_bank_account
+title: Bank Account Management
+description: Learn how to use classes and methods to manage a bank account in Python.
+authors:
+  - first: Jone
+    last: Doe
+    email: jone.doe@example.com
+    affiliation: University of John Doe
+pedagogy:
+  activity: worked-example
+  difficulty: novice
+  prereq_topics: []
+  topics:
+    - classes
+    - state
+runtime:
+  language: python
+  version: 3
+statement: |
+  This worked example demonstrates how the `BankAccount` class manages state. We'll examine:
+  1. Class constructor (`__init__`)
+  2. Deposit method (`deposit`)
+  3. Withdrawal method (`withdraw`)
+executions:
+  - title: Bob's Account
+    stdin: []
+    stdout: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    console: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    status: pass
+elements:
+  - type: explanation
+    location:
+      snippet: "def __init__(self, owner, balance):"
+    explanations:
+      - body: |
+          The constructor initializes the account owner and an optional starting balance. In Python, this is written as:
+          ```python
+          def __init__(self, owner, balance):
+              self.owner = owner
+              self.balance = balance
+          ```
+          The parameter `balance` defaults to `0` if not provided.
+      - body: |
+          ...
+  - type: explanation
+    location:
+      snippet: "if 0 < amount and amount <= self.balance:"
+    explanations:
+      - body: |
+          This condition validates that the withdrawal transaction is correct: it checks if the `amount` is greater than `0` and is less than or equal to the current `self.balance`.
