@@ -12,8 +12,8 @@ Cupcake supports a diverse suite of programming activity formats. This repositor
 
 A **Worked Example** provides step-by-step instructional code walkthroughs. It links human-readable explanations directly to specific source code snippets, explains control flow and syntax, and demonstrates sample runtime executions (console outputs, `stdin`, `stdout`, and `stderr`).
 
-🔗 **Live Online Demo:**  
-[Open Sample Worked Example on Cupcake Web](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)
+🔗 **Interactive Demo:**  
+[Open demo/index.html](demo/index.html) or serve locally at `http://localhost:8000/demo/`.
 
 ---
 
@@ -22,12 +22,13 @@ A **Worked Example** provides step-by-step instructional code walkthroughs. It l
 ```
 .
 ├── schemas/
-│   └── worked-example_0.1.0.json       # JSON Schema definition for worked-example activities
-├── samples/
-│   ├── worked-example.yaml             # Example activity configuration (YAML format)
-│   └── main.py                         # Target source code referenced by the activity
+│   └── worked-example_0.1.0.json            # JSON Schema definition for worked-example activities
+├── demo/
+│   ├── index.html                           # Interactive demo page
+│   ├── bank-account.worked-example.yaml     # Activity configuration (YAML format)
+│   └── bank-account.py                      # Target source code referenced by the activity
 ├── viewer/
-│   └── index.html                      # Standalone, interactive HTML viewer for the activity
+│   └── cupcake-activity-we.js               # Standalone single-file Web Component bundle
 └── README.md
 ```
 
@@ -45,7 +46,7 @@ A Cupcake activity YAML file defines metadata, pedagogy, runtime environment, so
 | `id` | `string` | Unique identifier for the activity |
 | `title` | `string` | Human-readable title |
 | `description`| `string` | Brief overview or educational objective |
-| `source` | `string` | Relative path to the underlying program file (e.g. `main.py`) |
+| `source` | `string` | Relative path to the underlying program file (e.g. `bank-account.py`) |
 | `license` | `string` | Content license (e.g. `MIT`) |
 | `locale` | `string` | IETF language tag (e.g. `en-US`) |
 | `authors` | `array` | List of author objects with `first`, `last`, `email`, and `affiliation` |
@@ -59,11 +60,11 @@ A Cupcake activity YAML file defines metadata, pedagogy, runtime environment, so
 
 ## 🔍 Example: Bank Account Management
 
-### 1. `samples/worked-example.yaml`
+### 1. `demo/bank-account.worked-example.yaml`
 
 ```yaml
 $schema: https://learning-contents.org/schemas/worked-example/0.1.0
-source: main.py
+source: bank-account.py
 license: MIT
 locale: en-US
 id: we_bank_account
@@ -124,7 +125,7 @@ elements:
           This condition validates that the withdrawal transaction is correct: it checks if the `amount` is greater than `0` and is less than or equal to the current `self.balance`.
 ```
 
-### 2. `samples/main.py`
+### 2. `demo/bank-account.py`
 
 ```python
 class BankAccount:
@@ -154,24 +155,59 @@ print(f"Balance: {account.balance}")
 
 ---
 
-## 💻 Standalone Viewer
+## 💻 Web Component Viewer
 
-A zero-dependency standalone HTML/JS viewer is provided under [`viewer/index.html`](viewer/index.html).
+The worked example viewer is exported directly from `cupcake-web` as a **single-file standalone Web Component** (`<cupcake-worked-example>`) located at [`viewer/cupcake-activity-we.js`](viewer/cupcake-activity-we.js). All CSS, polyfills, CodeMirror, and markdown dependencies are inlined into this single file.
 
-### Running the Local Viewer
+### Running the Local Demo
 
-Because the viewer loads the sample YAML and Python files via `fetch()`, serve the directory using any static HTTP server:
+Because the demo loads the YAML and Python files via `fetch()`, serve the repository with any static server:
 
 ```bash
-# Using Python 3 built-in HTTP server:
+# From the repository root:
 python3 -m http.server 8000
 ```
 
-Then visit [http://localhost:8000/viewer/](http://localhost:8000/viewer/) in your web browser.
+Then open [http://localhost:8000/demo/](http://localhost:8000/demo/) in your web browser.
+
+### Embedding the Web Component
+
+Embedding only requires importing the single JS bundle and instantiating the tag:
+
+```html
+<!-- 1. Single JS bundle (styles and polyfills bundled) -->
+<script src="viewer/cupcake-activity-we.js" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+<!-- 2. Web Component element -->
+<cupcake-worked-example id="workedExample"></cupcake-worked-example>
+
+<!-- 3. Provide YAML & source code -->
+<script>
+  customElements.whenDefined('cupcake-worked-example').then(async () => {
+    const [yamlText, pythonCode] = await Promise.all([
+      fetch('demo/bank-account.worked-example.yaml').then(r => r.text()),
+      fetch('demo/bank-account.py').then(r => r.text())
+    ]);
+
+    const el = document.getElementById('workedExample');
+    el.task = jsyaml.load(yamlText);
+    el.sourceCode = pythonCode;
+  });
+</script>
+```
 
 ---
 
-## 🔗 Online Interactive Demo
+## 🔗 Interactive Demo
 
-Experience the full-featured Cupcake activity viewer in action:  
-👉 **[Cupcake Worked Example Demo](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)**
+Experience the interactive Worked Example viewer in action:
+
+- **Live GitHub Pages Demo:** [https://mhassany-pitt.github.io/cupcake-activity/demo/](https://mhassany-pitt.github.io/cupcake-activity/demo/)
+- **Local Preview via Local Server:**
+  ```bash
+  python3 -m http.server 8000
+  ```
+  Then open [http://localhost:8000/demo/](http://localhost:8000/demo/) in your browser.
+
+

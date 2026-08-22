@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cupcake Worked Example Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
+  <header class="bg-white border-b border-gray-200 py-4 px-6 mb-6 shadow-xs">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-xl font-bold tracking-tight text-gray-900">Cupcake Activity</span>
+        <span class="text-xs uppercase font-semibold px-2 py-0.5 rounded bg-blue-100 text-blue-800">Worked Example Demo</span>
+      </div>
+      <a href="https://github.com/mhassany-pitt/cupcake-activity" class="text-xs text-gray-500 hover:text-gray-900 font-medium">GitHub Repository &rarr;</a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+    <!-- Embedded Web Component Demo -->
+    <cupcake-worked-example id="workedExample"></cupcake-worked-example>
+  </main>
+
+  <!-- Single-file Web Component bundle (CSS + polyfills included) -->
+  <script src="../viewer/cupcake-activity-we.js" type="module"></script>
+  <script>
+    // Inlined activity YAML & Python program for seamless standalone offline/static execution
+    const activityYaml = `$schema: https://learning-contents.org/schemas/worked-example/0.1.0
+source: bank-account.py
+license: MIT
+locale: en-US
+id: we_bank_account
+title: Bank Account Management
+description: Learn how to use classes and methods to manage a bank account in Python.
+authors:
+  - first: Jone
+    last: Doe
+    email: jone.doe@example.com
+    affiliation: University of John Doe
+pedagogy:
+  activity: worked-example
+  difficulty: novice
+  prereq_topics: []
+  topics:
+    - classes
+    - state
+runtime:
+  language: python
+  version: 3
+statement: |
+  This worked example demonstrates how the \`BankAccount\` class manages state. We'll examine:
+  1. Class constructor (\`__init__\`)
+  2. Deposit method (\`deposit\`)
+  3. Withdrawal method (\`withdraw\`)
+executions:
+  - title: Bob's Account
+    stdin: []
+    stdout: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    console: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    status: pass
+elements:
+  - type: explanation
+    location:
+      snippet: "def __init__(self, owner, balance):"
+    explanations:
+      - body: |
+          The constructor initializes the account owner and an optional starting balance. In Python, this is written as:
+          \`\`\`python
+          def __init__(self, owner, balance):
+              self.owner = owner
+              self.balance = balance
+          \`\`\`
+          The parameter \`balance\` defaults to \`0\` if not provided.
+      - body: |
+          ...
+  - type: explanation
+    location:
+      snippet: "if 0 < amount and amount <= self.balance:"
+    explanations:
+      - body: |
+          This condition validates that the withdrawal transaction is correct: it checks if the \`amount\` is greater than \`0\` and is less than or equal to the current \`self.balance\`.
+`;
+
+    const pythonSource = `class BankAccount:
+  def __init__(self, owner, balance):
+    self.owner = owner
+    self.balance = balance
+
+  def deposit(self, amount):
+    if amount > 0:
+      self.balance = self.balance + amount
+      print(f"Deposited {amount}")
+    return self.balance
+
+  def withdraw(self, amount):
+    if 0 < amount and amount <= self.balance:
+      self.balance = self.balance - amount
+      print(f"Withdrew {amount}")
+    else:
+      print("Insufficient funds")
+    return self.balance
+
+account = BankAccount("Bob", 200)
+account.deposit(100)
+account.withdraw(50)
+print(f"Balance: {account.balance}")
+`;
+
+    async function initDemo() {
+      let yamlText = activityYaml;
+      let pythonCode = pythonSource;
+
+      // Try fetching live files if running under an HTTP server
+      try {
+        const [yamlResp, pyResp] = await Promise.all([
+          fetch('bank-account.worked-example.yaml').then(r => r.ok ? r.text() : null),
+          fetch('bank-account.py').then(r => r.ok ? r.text() : null)
+        ]);
+        if (yamlResp && pyResp) {
+          yamlText = yamlResp;
+          pythonCode = pyResp;
+        }
+      } catch (_) {
+        // Fallback to inlined content
+      }
+
+      const el = document.getElementById('workedExample');
+      el.task = jsyaml.load(yamlText);
+      el.sourceCode = pythonCode;
+      el.yamlPath = 'bank-account.worked-example.yaml';
+    }
+
+    customElements.whenDefined('cupcake-worked-example').then(() => {
+      initDemo();
+    });
+  </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 $schema: https://learning-contents.org/schemas/worked-example/0.1.0
-source: main.py
+source: bank-account.py
 license: MIT
 locale: en-US
 id: we_bank_account
