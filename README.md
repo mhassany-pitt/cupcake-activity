@@ -12,8 +12,8 @@ Cupcake supports a diverse suite of programming activity formats. This repositor
 
 A **Worked Example** provides step-by-step instructional code walkthroughs. It links human-readable explanations directly to specific source code snippets, explains control flow and syntax, and demonstrates sample runtime executions (console outputs, `stdin`, `stdout`, and `stderr`).
 
-🔗 **Interactive Demo:**  
-[Open demo/index.html](demo/index.html) or serve locally at `http://localhost:8000/demo/`.
+🔗 **Live Online Demo:**  
+👉 **[Open Bank Account Worked Example on Cupcake Web](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)**
 
 ---
 
@@ -199,15 +199,9 @@ Embedding only requires importing the single JS bundle and instantiating the tag
 
 ---
 
-## 🔗 Interactive Demo
+## 🔗 Live Online Demo
 
-Experience the interactive Worked Example viewer in action:
-
-- **Live GitHub Pages Demo:** [https://mhassany-pitt.github.io/cupcake-activity/demo/](https://mhassany-pitt.github.io/cupcake-activity/demo/)
-- **Local Preview via Local Server:**
-  ```bash
-  python3 -m http.server 8000
-  ```
-  Then open [http://localhost:8000/demo/](http://localhost:8000/demo/) in your browser.
+Experience the full-featured Cupcake activity viewer in action:  
+👉 **[Cupcake Worked Example Demo](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)**
 
 
