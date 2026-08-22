@@ -12,8 +12,9 @@ Cupcake supports a diverse suite of programming activity formats. This repositor
 
 A **Worked Example** provides step-by-step instructional code walkthroughs. It links human-readable explanations directly to specific source code snippets, explains control flow and syntax, and demonstrates sample runtime executions (console outputs, `stdin`, `stdout`, and `stderr`).
 
-🔗 **Live Online Demo:**  
-👉 **[Open Bank Account Worked Example on Cupcake Web](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)**
+🔗 **Live Online Demos:**  
+- 👉 **[Bank Account Worked Example](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)**
+- 👉 **[PCEX Worked Examples Collection](https://adapt2.sis.pitt.edu/cupcake/#/activities/en-py-pcex/catalogv2-en-workedexamples)** *(Ported from [PAWS Catalog PCEX Worked Examples](https://adapt2.sis.pitt.edu/next.course-authoring/#/catalog-v2?attribution.provider=PCEX&identity.type=CodeConstruction&languages.programming_languages=Python))*
 
 ---
 
@@ -199,9 +200,9 @@ Embedding only requires importing the single JS bundle and instantiating the tag
 
 ---
 
-## 🔗 Live Online Demo
+## 🔗 Live Online Demos
 
-Experience the full-featured Cupcake activity viewer in action:  
-👉 **[Cupcake Worked Example Demo](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)**
+- 👉 **[Bank Account Worked Example Demo](https://adapt2.sis.pitt.edu/cupcake/#/activities/sample-py-bank-account/worked-example.yaml)**
+- 👉 **[PCEX Worked Examples (PAWS Catalog)](https://adapt2.sis.pitt.edu/cupcake/#/activities/en-py-pcex/catalogv2-en-workedexamples)** *(Ported from [PAWS Catalog PCEX Python Worked Examples](https://adapt2.sis.pitt.edu/next.course-authoring/#/catalog-v2?attribution.provider=PCEX&identity.type=CodeConstruction&languages.programming_languages=Python))*
 
 
