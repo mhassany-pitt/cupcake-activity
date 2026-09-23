@@ -43,7 +43,7 @@ A Cupcake activity YAML file defines metadata, pedagogy, runtime environment, so
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| `$schema` | `string` | URL / identifier of the JSON Schema (e.g. `https://learning-contents.org/schemas/worked-example/0.1.0`) |
+| `$schema` | `string` | URL / identifier of the JSON Schema (e.g. `https://adapt2.sis.pitt.edu/cupcake/schemas/worked-example/0.1.0`) |
 | `id` | `string` | Unique identifier for the activity |
 | `title` | `string` | Human-readable title |
 | `description`| `string` | Brief overview or educational objective |
@@ -64,7 +64,7 @@ A Cupcake activity YAML file defines metadata, pedagogy, runtime environment, so
 ### 1. `demo/bank-account.worked-example.yaml`
 
 ```yaml
-$schema: https://learning-contents.org/schemas/worked-example/0.1.0
+$schema: https://adapt2.sis.pitt.edu/cupcake/schemas/worked-example/0.1.0
 source: bank-account.py
 license: MIT
 locale: en-US

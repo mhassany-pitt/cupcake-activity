@@ -1,4 +1,4 @@
-$schema: https://learning-contents.org/schemas/worked-example/0.1.0
+$schema: https://adapt2.sis.pitt.edu/cupcake/schemas/worked-example/0.1.0
 source: bank-account.py
 license: MIT
 locale: en-US
