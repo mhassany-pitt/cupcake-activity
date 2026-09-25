@@ -37,6 +37,10 @@ executions:
       Withdrew 50
       Balance: 250
     status: pass
+    feedback:
+      - on_pass:
+          - explanations:
+              - "Demonstrates the step-by-step execution and final state of the bank account transactions."
 elements:
   - type: explanation
     location:
